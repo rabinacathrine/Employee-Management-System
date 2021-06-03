@@ -1,0 +1,177 @@
+<?php
+require_once 'config.php';
+if (isset($_REQUEST['slno'])){
+$slno = stripslashes($_REQUEST['slno']);
+$moc = stripslashes($_REQUEST['moc']);
+$sql="select*from moc";
+$s=mysqli_query($link,$sql);
+while($row=mysqli_fetch_array($s,MYSQL_ASSOC))
+{
+	//ECHO"HI";
+	if($slno==$row['sl_no'])
+	{
+?>
+		<script>
+		alert('slno already exists...');
+        window.location.href='communication.php';
+        </script>";
+        <?php
+	}
+}	
+
+$sql="INSERT INTO `moc`(`slno`, `mocom`) VALUES ('$slno','$moc')";
+
+
+// $sql = "INSERT INTO admin (Username, Email_id, Password)VALUES ( 'Doe', 'john@example.com','7y7y7y')";('firstname','lastname','age','mobile','email','password')
+
+if (mysqli_query($link, $sql)) {
+    echo "<script>
+      alert('Registered successfully');
+      window.location.href='communication.php?success';
+
+                   </script>";
+      
+} else {
+    echo "Error: " . $sql . "<br>" . mysqli_error($link);
+}
+
+mysqli_close($link);
+}
+?>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="../style.css">
+    <!-- Data Table -->
+    <link rel="stylesheet" href="../assets/DataTable/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="../style.css">
+
+    <title>Feenix</title>
+</head>
+<body>
+     <!-- Navbar -->
+     <nav class="navbar navbar-expand-lg sticky-top navbar-light bg-primary">
+        <a class="navbar-brand" href="#">Feenix</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown active">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Master
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" href="customer.php">Customer Registeration</a>
+                  <a class="dropdown-item" href="executive.php">Executive Registeration</a>
+                  <a class="dropdown-item " href="communication.php" >Mode of Communication</a>
+                </div>
+              </li>
+            <li class="nav-item ">
+              <a class="nav-link" href="feedback.php">FeedBack <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="dailyreport.php">Daily Report</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="alert.php">Alert</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="report.php">Overall Report</a>
+              </li>
+          </ul>
+        </div>
+      </nav>
+
+    <!-- Customer Registraion -->
+    <div class = "container">
+        <div class = "communication">
+          <div class = "communication-form">
+            <form name="executiveregistration" action="" method="post">
+                <h3>Mode Of Communication</h3>
+                <!-- SI.No and communication-->
+                <div class="row">
+                  <div class="col">
+                      <input type="number" class="form-control" placeholder="SI.No.*" name="slno">
+                  </div>
+                </div>
+                <br />
+                <div class = "row">
+                    <div class="col">
+                        <input type="text" class="form-control" placeholder="Mode Of Communication*" name="moc">
+						
+                    </div>
+                </div>
+                   <!-- Submit button-->
+                   <br />
+                    <button type="submit" class="btn btn-primary submit">Submit</button> 
+            </form>
+          </div>
+          <br />
+          <br />
+             <!-- Tables -->
+         <table id="example" class="table table-striped table-bordered" style="width:100%">
+          <thead>
+              <tr>
+                  <th>SI.No</th>
+                  <th>Mode Of Communication</th>
+              </tr>
+          </thead>
+          <tbody>
+               <?php
+                           // require_once 'connection.php';
+                            
+                            $conn = mysqli_connect("localhost","root","","fenix");
+                            if($conn-> connect_error) {
+                                die("connection failed:" .$conn-> connect_error);
+                            }
+                            $sql = "SELECT * from moc";
+                            $result =  $conn ->query($sql);
+                             if( $result->num_rows > 0 ){
+                                while ($row = $result ->fetch_assoc()) {
+                        
+                                   echo "<tr><td>".$row["slno"]."</td>"."<td>".$row["mocom"]."</td>"."<td>"."</td>";
+                                               // echo '<td><button type="button" class="btn btn-outline btn-primary data-toggle="modal" data-target="#myedit" ><b><font color="#fff"><a href="e.php?id=' . $row['id'] . '" style="color:white;">EDIT</a></b></button>';
+                                                                                                                                                                           
+                             //  echo '<button type="butoon" class="btn btn-outline btn-danger ><b><font color="#fff">Delete</a></font></b></button></td>';
+                                   echo '</tr>';
+                                   
+
+                                    
+                                }
+                                 echo "</table>";
+                             }
+                             else{
+                                echo "0 result";
+                        
+                             }
+                             $conn ->close();
+                            ?>
+
+              </tbody>
+              </table>
+              <br />
+              <br />
+        <!-- tables end -->
+        </div>
+    </div>
+
+      <script src = "../assets/bootstrap/jquery.min.js"></script>
+      <script src = "../assets/bootstrap/js/bootstrap.min.js"></script>
+      <!-- DataTables -->
+      <script type="text/javascript" src="../assets/DataTable/jquery.dataTables.min.js"></script>
+      <script type="text/javascript" src="../assets/DataTable/dataTables.bootstrap4.min.js"></script>
+      <!-- Custom Data table function -->
+      <script>
+        $(document).ready(function() {
+            $('#example').DataTable();
+        } );
+      </script>
+</body>
+</html>

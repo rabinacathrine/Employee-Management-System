@@ -1,0 +1,44 @@
+h3, h2{
+    padding: 20px;
+    padding-top: 10px;
+    text-align: center;
+    font-size: 22px;
+}
+h2 {
+    margin-top: 18%;
+    color: blue;
+}
+.submit {
+    width: 200px;
+    margin-bottom: 20px;
+}
+ .badge {
+    -webkit-border-radius: 10px!important;
+    -moz-border-radius: 10px !important;
+    border-radius: 10px !important;
+    padding: 2px 6px;
+}
+.label {
+    -webkit-border-radius: 0px !important;
+    -moz-border-radius: 0px !important;
+    border-radius: 0px !important;
+    text-shadow: none !important;
+    padding: 5px !important;
+}
+
+.label-info, .badge-info {
+    background-color: #32c2cd;
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #32c2cd), color-stop(100%, #32c2cd));
+    background-image: -webkit-linear-gradient(top, #32c2cd, #32c2cd);
+    background-image: -moz-linear-gradient(top, #32c2cd, #32c2cd);
+    background-image: -ms-linear-gradient(top, #32c2cd, #32c2cd);
+    background-image: -o-linear-gradient(top, #32c2cd, #32c2cd);
+    background-image: linear-gradient(top, #32c2cd, #32c2cd);
+}
+.count{
+	padding: 20px;
+    padding-top: 10px;
+    /*text-align: center;*/
+    font-size: 22px;
+	color:blue;
+}
